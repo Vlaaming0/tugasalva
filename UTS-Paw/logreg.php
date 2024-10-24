@@ -6,10 +6,9 @@ $login_error = '';
 $register_error = '';
 $register_success = '';
 
-// Proses login
 if (isset($_POST['login'])) {
-    $username = trim($_POST['username']); // Trim untuk menghapus spasi
-    $password = trim($_POST['password']); // Trim untuk menghapus spasi
+    $username = trim($_POST['username']); 
+    $password = trim($_POST['password']); 
 
     $sql = "SELECT * FROM users WHERE username='$username'";
     $result = $conn->query($sql);
@@ -31,13 +30,11 @@ if (isset($_POST['login'])) {
 
 
 
-// Proses register
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    // Cek apakah username atau email sudah terdaftar
     $check_sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
     $check_result = $conn->query($check_sql);
 
@@ -47,7 +44,6 @@ if (isset($_POST['register'])) {
         $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
 
         if ($conn->query($sql) === TRUE) {
-            // Berhasil register, arahkan kembali ke halaman login
             header('Location: logreg.php?registered=success');
             exit;
         } else {
