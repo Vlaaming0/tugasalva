@@ -38,4 +38,4 @@ while ($row = $result->fetch_assoc()) {
 ?>
 <a href="tambahgame.php">Tambah game</a>
 <br> <br>
-<a href="home.php">Kembali ke Home</a>
+<a href="index.php">Kembali ke Home</a>
