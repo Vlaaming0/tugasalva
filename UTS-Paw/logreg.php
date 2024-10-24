@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             $_SESSION['username'] = $username;
-            header('Location: home.php');
+            header('Location: index.php');
             exit;
         } else {
             $login_error = "Password salah!";
