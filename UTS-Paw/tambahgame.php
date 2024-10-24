@@ -1,5 +1,4 @@
 <?php
-// Pastikan user sudah login
 session_start();
 if (!isset($_SESSION['username'])) {
     header('Location: logreg.php');
@@ -9,19 +8,16 @@ if (!isset($_SESSION['username'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'config.php';
 
-    // Ambil data dari form
     $title = $_POST['title'];
     $deskripsi = $_POST['deskripsi'];
     $release_date = $_POST['release_date'];
     $genre = $_POST['genre'];
 
-    // Upload gambar
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // Validasi apakah file yang di-upload adalah gambar
     $check = getimagesize($_FILES["image"]["tmp_name"]);
     if($check !== false) {
         $uploadOk = 1;
@@ -30,16 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $uploadOk = 0;
     }
 
-    // Jika semua validasi lolos, upload gambar
     if ($uploadOk == 1) {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            // Insert game ke database
             $image_url = $target_file;
             $stmt = $conn->prepare("INSERT INTO games (title, deskripsi, release_date, genre, image_url) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $title, $deskripsi, $release_date, $genre, $image_url);
 
             if ($stmt->execute()) {
-                // Redirect ke halaman daftar game setelah berhasil
                 header('Location: daftargame.php');
                 exit;
             } else {
@@ -52,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!-- Form untuk menambah game -->
 <form action="tambahgame.php" method="post" enctype="multipart/form-data">
     <label for="title">Title:</label>
     <input type="text" name="title" required><br><br>
