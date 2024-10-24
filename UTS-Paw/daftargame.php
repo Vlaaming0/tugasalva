@@ -23,19 +23,8 @@ while ($row = $result->fetch_assoc()) {
     echo "<button type='submit' name='delete'>Hapus</button>";
     echo "</form><br>";
 }
-
-
-// if (isset($_POST['delete'])) {
-//     $delete_id = $_POST['game_id'];
-//     $sql = "DELETE FROM games WHERE game_id=$delete_id";
-//     if ($conn->query($sql) === TRUE) {
-//         echo "Game berhasil dihapus!";
-//     } else {
-//         echo "Terjadi kesalahan: " . $conn->error;
-//     }
-// }
-
 ?>
+
 <a href="tambahgame.php">Tambah game</a>
 <br> <br>
 <a href="index.php">Kembali ke Home</a>
